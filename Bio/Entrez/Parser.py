@@ -175,19 +175,19 @@ class DataHandler(object):
     local_xsd_dir = os.path.join(directory, 'Bio', 'Entrez', 'XSDs')
     del directory
     del platform
-    try:
-        os.makedirs(local_dtd_dir)  # use exist_ok=True on Python >= 3.2
-    except OSError as exception:
-        # Check if local_dtd_dir already exists, and that it is a directory.
-        # Trying os.makedirs first and then checking for os.path.isdir avoids
-        # a race condition.
-        if not os.path.isdir(local_dtd_dir):
-            raise exception
-    try:
-        os.makedirs(local_xsd_dir)  # use exist_ok=True on Python >= 3.2
-    except OSError as exception:
-        if not os.path.isdir(local_xsd_dir):
-            raise exception
+#    try:
+#        os.makedirs(local_dtd_dir)  # use exist_ok=True on Python >= 3.2
+#    except OSError as exception:
+#        # Check if local_dtd_dir already exists, and that it is a directory.
+#        # Trying os.makedirs first and then checking for os.path.isdir avoids
+#        # a race condition.
+#        if not os.path.isdir(local_dtd_dir):
+#            raise exception
+#    try:
+#        os.makedirs(local_xsd_dir)  # use exist_ok=True on Python >= 3.2
+#    except OSError as exception:
+#        if not os.path.isdir(local_xsd_dir):
+#            raise exception
 
     from Bio import Entrez
     global_dtd_dir = os.path.join(str(Entrez.__path__[0]), "DTDs")
@@ -331,7 +331,7 @@ class DataHandler(object):
                 if not handle:
                     handle = _urlopen(schema)
                     text = handle.read()
-                    self.save_xsd_file(os.path.basename(schema), text)
+#                    self.save_xsd_file(os.path.basename(schema), text)
                     handle.close()
                     self.parse_xsd(ET.fromstring(text))
                 else:
@@ -530,13 +530,13 @@ class DataHandler(object):
             self.structures.update({name: multiple})
 
     def open_dtd_file(self, filename):
-        path = os.path.join(DataHandler.local_dtd_dir, filename)
-        try:
-            handle = open(path, "rb")
-        except IOError:
-            pass
-        else:
-            return handle
+#        path = os.path.join(DataHandler.local_dtd_dir, filename)
+#        try:
+#            handle = open(path, "rb")
+#        except IOError:
+#            pass
+#        else:
+#            return handle
         path = os.path.join(DataHandler.global_dtd_dir, filename)
         try:
             handle = open(path, "rb")
@@ -547,13 +547,13 @@ class DataHandler(object):
         return None
 
     def open_xsd_file(self, filename):
-        path = os.path.join(DataHandler.local_xsd_dir, filename)
-        try:
-            handle = open(path, "rb")
-        except IOError:
-            pass
-        else:
-            return handle
+#        path = os.path.join(DataHandler.local_xsd_dir, filename)
+#        try:
+#            handle = open(path, "rb")
+#        except IOError:
+#            pass
+#        else:
+#            return handle
         path = os.path.join(DataHandler.global_xsd_dir, filename)
         try:
             handle = open(path, "rb")
@@ -564,24 +564,26 @@ class DataHandler(object):
         return None
 
     def save_dtd_file(self, filename, text):
-        path = os.path.join(DataHandler.local_dtd_dir, filename)
-        try:
-            handle = open(path, "wb")
-        except IOError:
-            warnings.warn("Failed to save %s at %s" % (filename, path))
-        else:
-            handle.write(text)
-            handle.close()
+#        path = os.path.join(DataHandler.local_dtd_dir, filename)
+#        try:
+#            handle = open(path, "wb")
+#        except IOError:
+#            warnings.warn("Failed to save %s at %s" % (filename, path))
+#        else:
+#            handle.write(text)
+#            handle.close()
+        pass
 
     def save_xsd_file(self, filename, text):
-        path = os.path.join(DataHandler.local_xsd_dir, filename)
-        try:
-            handle = open(path, "wb")
-        except IOError:
-            warnings.warn("Failed to save %s at %s" % (filename, path))
-        else:
-            handle.write(text)
-            handle.close()
+#        path = os.path.join(DataHandler.local_xsd_dir, filename)
+#        try:
+#            handle = open(path, "wb")
+#        except IOError:
+#            warnings.warn("Failed to save %s at %s" % (filename, path))
+#        else:
+#            handle.write(text)
+#            handle.close()
+        pass
 
     def externalEntityRefHandler(self, context, base, systemId, publicId):
         """The purpose of this function is to load the DTD locally, instead
